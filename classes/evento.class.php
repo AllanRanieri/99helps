@@ -142,7 +142,14 @@
 			}
 		}
 		public function delEvento() {
-			# Recebe informações do form da pagina e realiza del
+			$sql = "UPDATE instituicoes SET ativo=0 WHERE id=".$id;
+			# Se desativado com sucesso exibe mensagem sucesso, senão, exibe erro
+			if (mysql_query($sql)) {
+				header("Location: evento.php?msg=<strong>" . $nome . "</strong> deletado com sucesso :) <br> Se você deseja reativar esta insituição futuramente entre em contato conosco! <a href='contato.php'>Contato</a>&alert=success");
+			} else {
+				echo $id . 'eae';
+				header("Location: evento.php?msg=<strong>" . $nome . "</strong> não pode ser deletado com sucesso :(<a href='contato.php'>Contato</a>&alert=danger");
+			}
 		}
 		public function verEvento($id) {
 			#  Select da Evento e require do html da página (Evento -> pagina da Evento detalhada)
